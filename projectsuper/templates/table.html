@@ -1,0 +1,64 @@
+
+  {% extends "basefix.html" %}
+  {% block title %}Table{% endblock %}
+  
+  {% block content %}
+       <div id = "topic">Topic: <span id="topicchange">None</span> - Wifi:<span id="wifi">None</span> - ID-chip: <span id="id-chip"> None </span></div>
+          <table class="table-charts">
+              <thead>
+                  <tr >
+                      <th><h1>Lux</h1></th>
+                      <th><h1>Ax</h1></th>
+                      <th><h1>Ay</h1></th>
+                      <th><h1>Az</h1></th>
+                      <th><h1>Gx</h1></th>
+                      <th><h1>Gy</h1></th>
+                      <th><h1>Gz</h1></th>
+                      <th><h1>Temperature</h1></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td ><span id = "lux"></span>(lux)</td>
+                      <td ><span id = "Ax"></span>(m/s²)</td>
+                      <td ><span id = "Ay"></span>(m/s²)</td>
+                      <td ><span id = "Az"></span>(m/s²)</td>
+                      <td ><span id = "Gx"></span>(rad/s)</td>
+                      <td ><span id = "Gy"></span>(rad/s)</td>
+                      <td ><span id = "Gz"></span>(rad/s)</td>
+                      <td ><span id = "T"></span>( °C )</td>
+                  </tr>
+              </tbody>
+          </table>
+          <div  id="charts"><div id="Chart"></div></div>
+          <div><button id="smart">smart</button><button id="large">large</button><button id="auto">auto</button></div>
+  {% endblock %}
+{% block talktext %}
+<p style="font-size: 12px;">This is Live chart, you can monitor and compare data from sensors</p>
+{% endblock %}
+  {% block script%}   <!-- Bootstraps Java Scipts Links -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+
+
+
+  <!-- JQuery links  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+  <!--High CHART LIVE  -->
+  <script src="{{ url_for('static', filename='js/highcharts.js')}}"></script>
+  <script src="http://code.highcharts.com/highcharts-more.js"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data-2012-2022.min.js"></script>
+  <script src="{{ url_for('static', filename='js/table.js')}}"></script>
+  {% endblock%}
+  {% block style%} 
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css')}}">
+  {% endblock%}
+  
+

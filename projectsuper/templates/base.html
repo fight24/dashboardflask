@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="shortcut icon" href="{{url_for('static',filename='images/ico/login.ico')}}">
+</head>
+
+<body>
+  {% block content %}{% endblock %}
+    <!------------------mouse-------------------------->
+<div class="cur" >
+  <div class="main-cur"></div><img class="satelite" src="https://raw.githubusercontent.com/sgk125/codepen/a8a7bd89332a11e6e70dce0216309fae0d1ef045/satellite.svg" alt="">
+</div>
+<style>
+  
+.cur {
+  height: 31px;
+  width: 31px;
+  z-index: 99999999;
+  pointer-events: none;
+  /* background: grey;*/
+  border-radius: 50%;
+  position: absolute;
+  /*animation: cursorAnim .5s infinite alternate;*/
+  animation: rotate 4s infinite linear;
+  transition: all 0.3s ease;
+  transition-property: background, transform;
+  transform-origin: 100%, 100%;
+}
+
+/* @media screen and (max-width: 1279px) {
+  .cur {
+    display: none;
+  }
+  body {
+    cursor: default;
+  }
+} */
+
+.main-cur {
+  animation: none;
+  margin: 0px;
+  content: "";
+  width: 0.1px;
+  height: 0.1px;
+  border: 10.5px solid#1A28CF;
+  position: absolute;
+  border-radius: 50%;
+  /* opacity: .5; */
+  top: 4.5px;
+  left: 4.5px;
+  /* transform: translate(-50%, -50%); */
+  animation: cursorAnim 0.5s infinite alternate;
+}
+
+.satelite {
+  height: 30px;
+  margin: 30px;
+  transform: rotate(-1deg);
+  /* transition-duration: 200ms;
+    transition-timing-function: ease-out;
+    */
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes cursorAnim {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.7);
+  }
+}
+
+@keyframes cursorClick {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.expand {
+  animation: cursorClick 0.5s forwards;
+  border: 1px solid blue;
+}
+
+.link-grow {
+  transform: scale(2);
+  background: #1a28cf;
+}
+
+/* @media only screen and (max-width: 380px) {
+  .cur {
+    display: none;
+  }
+  body {
+    cursor: default;
+  }
+} */
+
+</style>
+<script>
+  let links = document.querySelector(".main-content a");
+const cursors = document.querySelector(".cur");
+document.addEventListener("mousemove", (e) => {
+  let x = e.pageX;
+  let y = e.pageY;
+  cursors.setAttribute(
+    "style",
+    "top: " + (e.pageY - 10) + "px; left: " + (e.pageX - 10) + "px;"
+  );
+});
+
+document.addEventListener("click", () => {
+  cursors.classList.add("expand");
+  setTimeout(() => {
+    cursors.classList.remove("expand");
+  }, 500);
+});
+
+</script>
+<!------------------mouse-------------------------->
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='js/login.js')}}"></script>
+</html>

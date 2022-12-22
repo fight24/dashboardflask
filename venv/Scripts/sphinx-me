@@ -1,0 +1,4 @@
+#!"D:\hoc tap\bt\wed\dashboardflask\venv\Scripts\python.exe"
+# EASY-INSTALL-SCRIPT: 'sphinx-me==0.3','sphinx-me'
+__requires__ = 'sphinx-me==0.3'
+__import__('pkg_resources').run_script('sphinx-me==0.3', 'sphinx-me')

@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="webthemez">
+  <title>Wellcome to Home 's Team 4 </title>
+
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+ <! ------------------------------------ -->
+  <link href="{{ url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static',filename='css/animate.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/HomeBase.css')}}">
+  <link rel="shortcut icon" href="{{url_for('static',filename='images/ico/icons8-home-material-outlined-70.png')}}">
+</head>
+<body id = 'home'>
+<!-- partial:index.partial.html -->
+   <header id="header" class = "main-content">
+  <nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="banner">
+      <div class="container">
+            <div class="navmenu">
+      <!-- partial:index.partial.html -->
+      <nav class="menu">
+        <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
+        <label class="menu-open-button" for="menu-open">
+          <span class="hamburger hamburger-1"></span>
+          <span class="hamburger hamburger-2"></span>
+          <span class="hamburger hamburger-3"></span>
+        </label>
+
+        <a href="#home" class="menu-item"> <i class="fa fa-home"></i> </a>
+        <a href="#team" class="menu-item"> <i class="fa fa-users"></i> </a>
+        <a href="#about" class="menu-item"> <i class="fa fa-heart"></i> </a>
+        <a href="login" class="menu-item"> <i class="fa fa-sign-in"></i> </a>
+
+      </nav>
+
+      <!-- filters -->
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+          <filter id="shadowed-goo">
+
+              <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+              <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
+              <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
+              <feOffset in="shadow" dx="1" dy="1" result="shadow" />
+              <feComposite in2="shadow" in="goo" result="goo" />
+              <feComposite in2="goo" in="SourceGraphic" result="mix" />
+          </filter>
+          <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+              <feComposite in2="goo" in="SourceGraphic" result="mix" />
+          </filter>
+        </defs>
+      </svg>
+               </div>
+              </div><!--/.container-->
+            </nav><!--/nav-->
+        </header><!--/header-->
+<section id="hero-banner">
+  <main class="main-content">
+  <section class="slideshow">
+
+    <div class="slideshow-inner">
+      <div class="slides">
+        <div class="slide is-active ">
+          <div class="slide-content">
+            <div class="caption">
+              <div class="title">Wellcome Home</div>
+              <div class="text">
+                <p>We are team 4</p>
+              </div>
+              <a href="#home" class="btn">
+                <span class="btn-inner">Learn More</span>
+              </a>
+            </div>
+          </div>
+          <div class="image-container">
+            <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/13570593-d036-4374-9dce-1e26c9c05170/d4vrpg7-be79d9ab-e0bf-4047-8373-d8a3b362f8e1.jpg/v1/fill/w_1183,h_676,q_70,strp/solar_roofs_by_erikshoemaker_d4vrpg7-pre.jpg" alt="" class="image" />
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide-content">
+            <div class="caption">
+              <div class="title">Our Team</div>
+              <div class="text">
+                <p>Team Work</p>
+              </div>
+              <a href="#team" class="btn">
+              <div><span class="btn-inner" >Learn More</span></div>
+              </a>
+            </div>
+          </div>
+          <div class="image-container">
+            <img src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="image" />
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide-content">
+            <div class="caption">
+              <div class="title">Mission</div>
+              <div class="text">
+                <p>Mission Cansat</p>
+              </div>
+              <a href="#about" class="btn">
+                <span class="btn-inner">Learn More</span>
+              </a>
+            </div>
+          </div>
+          <div class="image-container">
+            <img src="https://www.pixel4k.com/wp-content/uploads/2018/03/Earth%20Moon%204K%208K745842090.jpg" alt="" class="image" />
+          </div>
+        </div>
+  
+        <div class="slide">
+          <div class="slide-content">
+            <div class="caption">
+              <div class="title">Trạm mặt đất</div>
+              <div class="text">
+                <p>Nơi hiện thị thông tin dữ liệu </p>
+              </div>
+
+              <a href="login" class="btn">
+                <span class="btn-inner">Learn More</span>
+              </a>
+            </div>
+          </div>
+          <div class="image-container">
+            <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a90cd6a9-d132-4807-a727-788494e691d7/ddmf0qy-b56dbcd0-6066-4d92-b2e2-33cf68b494da.jpg/v1/fill/w_1289,h_620,q_70,strp/satellite_control_towers_by_hjalmarwahlin_ddmf0qy-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzcwIiwicGF0aCI6IlwvZlwvYTkwY2Q2YTktZDEzMi00ODA3LWE3MjctNzg4NDk0ZTY5MWQ3XC9kZG1mMHF5LWI1NmRiY2QwLTYwNjYtNGQ5Mi1iMmUyLTMzY2Y2OGI0OTRkYS5qcGciLCJ3aWR0aCI6Ijw9MTYwMCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.ziAAU2jpx2gB0fWT6Tc0hEhmmsK2aSww911BfyucUJI" alt="" class="image" />
+          </div>
+        </div>
+      </div>
+      <div class="pagination">
+        <div class="item is-active">
+          <span class="icon">1</span>
+        </div>
+        <div class="item">
+          <span class="icon">2</span>
+        </div>
+        <div class="item">
+          <span class="icon">3</span>
+        </div>
+        <div class="item">
+          <span class="icon">4</span>
+        </div>
+      </div>
+      <div class="arrows">
+        <div class="arrow prev">
+          <span class="svg svg-arrow-left">
+            <svg version="1.1" id="svg4-Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="14px" height="26px" viewBox="0 0 14 26" enable-background="new 0 0 14 26" xml:space="preserve"> <path d="M13,26c-0.256,0-0.512-0.098-0.707-0.293l-12-12c-0.391-0.391-0.391-1.023,0-1.414l12-12c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414L2.414,13l11.293,11.293c0.391,0.391,0.391,1.023,0,1.414C13.512,25.902,13.256,26,13,26z"/> </svg>
+            <span class="alt sr-only"></span>
+          </span>
+        </div>
+        <div class="arrow next">
+          <span class="svg svg-arrow-right">
+            <svg version="1.1" id="svg5-Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="14px" height="26px" viewBox="0 0 14 26" enable-background="new 0 0 14 26" xml:space="preserve"> <path d="M1,0c0.256,0,0.512,0.098,0.707,0.293l12,12c0.391,0.391,0.391,1.023,0,1.414l-12,12c-0.391,0.391-1.023,0.391-1.414,0s-0.391-1.023,0-1.414L11.586,13L0.293,1.707c-0.391-0.391-0.391-1.023,0-1.414C0.488,0.098,0.744,0,1,0z"/> </svg>
+            <span class="alt sr-only"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<!-- partial -->
+</section>
+<section id="team">
+  <div class="container">
+ <div class="section-header">
+                <h2 class="section-title wow fadeInDown">Our Team</h2>
+                <p class="wow fadeInDown">&#9755; Chúng tôi là một nhóm sinh viên đến từ <strong><a href="https://uet.vnu.edu.vn/" target="_blank">UET</a></strong> làm đồ án môn <span style="color:blue">Thiết kế, tích hợp vệ tinh nhỏ và đồ án</span><br>&#9755; Chúng tôi là nhóm 4, bao gồm các thành viên :</p>
+            </div>
+<div class="row" >
+  <div class="flex-container" data-anim-type="fade-in-up" >
+
+  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+  <div class="team-wrapper">
+  <div class="team-inner" style="background-image: url('static/images/team/01.jpg')">
+  <a href="https://www.facebook.com/ahii62" target="_blank"> <i class="fa-brands fa-facebook"></i></a>
+  </div>
+  <div class="description">
+  <h3> Mr.Long </h3>
+  <h5> <strong> Tổng hợp nội dung </strong></h5>
+  <p class="info-member"><span><strong>HT:</strong></span><span>Phạm Hữu Long</span>
+    <br><strong>Lớp:</strong>K64-H<br><strong>MSSV:</strong> 19020839
+    </p>
+  </div>
+  </div>
+  </div>
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+  <div class="team-wrapper">
+  <div class="team-inner" style="background-image: url('static/images/team/02.jpg')">
+  <a href="https://www.facebook.com/profile.php?id=100017812932903" target="_blank"> <i class="fa-brands fa-facebook"></i></a>
+  </div>
+  <div class="description">
+  <h3> Mr.Quang </h3>
+  <h5> <strong> Viết báo cáo </strong></h5>
+  <p class="info-member"><span><strong>HT:</strong></span><span>Vũ Minh Quang</span>
+    <br><strong>Lớp:</strong>K64-H<br><strong>MSSV:</strong> 19020850
+    </p>
+  </div>
+  </div>
+  </div>
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+  <div class="team-wrapper">
+  <div class="team-inner" style="background-image: url('https://img.freepik.com/premium-vector/avatar-child-with-big-eyes-wide-happy-smile-red-santa-hat-cute-kid-with-joyful-face-festive-costume-new-year-christmas-head-adorable-baby-with-joyful-emotions_427567-1719.jpg?w=740')">
+  <a href="https://www.facebook.com/profile.php?id=100007892327012" target="_blank"> <i class="fa-brands fa-facebook"></i></a>
+  </div>
+  <div class="description">
+  <h3> Mr.Phương</h3>
+  <h5> <strong> Code arduino &amp; web </strong></h5>
+  <p class="info-member"><span><strong>HT:</strong></span><span>Phạm Văn Phương</span>
+  <br><strong>Lớp:</strong>K64-H<br><strong>MSSV:</strong> 19020848
+  </p>
+  </div>
+  </div>
+  </div>
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 " >
+  <div class="team-wrapper">
+  <div class="team-inner" style="background-image: url('static/images/team/03.jpg')">
+  <a href="https://www.facebook.com/bluc12" target="_blank"> <i class="fa-brands fa-facebook"></i></a>
+  </div>
+  <div class="description">
+  <h3> Mr.Lực(c) </h3>
+  <h5> <strong>Làm Vỏ &amp; Lắp rắp </strong></h5>
+  <p class="info-member"><span><strong>HT:</strong></span><span>Bùi Quang Lực</span>
+    <br><strong>Lớp:</strong>K64-H<br><strong>MSSV:</strong> 19020841
+    </p>
+  </div>
+  </div>
+  </div>
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" >
+  <div class="team-wrapper">
+  <div class="team-inner" style="background-image: url('static/images/team/04.jpg')">
+  <a href="https://www.facebook.com/profile.php?id=100007927832377" target="_blank"> <i class="fa-brands fa-facebook"></i></a>
+  </div>
+  <div class="description">
+  <h3> Mr.Cương </h3>
+  <h5> <strong> In 3D</strong></h5>
+  <p class="info-member"><span><strong>HT:</strong></span><span>Nguyễn Đức Cương</span>
+    <br><strong>Lớp:</strong>K64-H<br><strong>MSSV:</strong> 19020793
+    </p>
+  </div>
+  </div>
+  </div>
+</div>
+</div>
+</div>
+
+</section>
+  <section id="about">
+        <div class="container">
+
+            <div class="section-header">
+                <h2 class="section-title wow fadeInDown"> Mission</h2>
+                <p class="wow fadeInDown">&#9755;  Chúng tôi sẽ làm một vệ tinh, kích thước và hình dạng của một lon nước ngọt, vào quỹ đạo thấp của trái đất để thực hiện các nhiệm vụ sau:<br>
+                  Thu thập dữ liệu gia tốc, tư thế, nhiệt độ và cường độ ánh sáng mỗi giây một lần khi đi xuống để hoàn thành nhiệm vụ chính,ghi lại dữ liệu khí hậu trong quá trình đi xuống và trên mặt đất,báo cáo tất cả dữ liệu đã thu thập tới một trạm mặt đất từ ​​xa bằng công nghệ IOT.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 wow fadeInLeft">
+                  <img class="img-responsive" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/CanSat_Comp_%2857%29_copy.jpg" alt="">
+                </div>
+
+                <div class="col-sm-6 wow fadeInRight">
+                    <h3 class="column-title">Mục tiêu của chúng tôi:</h3>
+                    <p>&#9755; Nhằm mục đích hiểu rõ và áp dụng được những kiến thức trong môn học, nhóm 4 hướng đến việc chế tạo cansat nhằm áp dụng những gì đã học vào thực tiễn.</p>
+                    <p>&#9755; Với mục đích trên, team 4 lựa chọn chế tạo cansat đo cường độ ánh sáng nhằm khảo sát điều kiện môi trường về mặt ánh sáng ở những địa điểm cần thiết. Bên cạnh đó có tích hợp thêm cảm biến đo gia tốc góc nghiêng, nhằm lấy thông dữ liệu về mặt đáp đắt, hỗ trợ việc phát triển thêm về thực tế.</p>
+					          <p>&#9755; Nhóm nhắm tới bảo đảm những yêu cầu sau: Cansat hoạt động ổn định về phần điện tử và cấu trúc từ lúc thả đến lúc đáp đất,cảm biến ánh sáng hoạt động và thu thập số liệu trong suốt quá trình đo,cảm biến gia tốc góc nghiêng hoạt động tại vị trí đáp đất,giao thức truyền thông ổn định từ khoảng cách 30m đổ lại.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!------------------mouse---------------------------->
+<div class="cur" >
+  <div class="main-cur"></div><img class="satelite" src="https://raw.githubusercontent.com/sgk125/codepen/a8a7bd89332a11e6e70dce0216309fae0d1ef045/satellite.svg" alt="">
+</div>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js'></script>
+    <script src="{{ url_for('static', filename='js/jquery.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/mousescroll.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/smoothscroll.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.prettyPhoto.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.isotope.min.js')}}"></script>
+
+  <script src="{{ url_for('static', filename='js/jquery.inview.min.js')}}"></script>
+      <script src="{{ url_for('static', filename='js/wow.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/HomeBase.js')}}"></script>
+
+
+
+
+</body>
+</html>

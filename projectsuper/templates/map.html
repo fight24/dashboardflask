@@ -1,0 +1,467 @@
+{% extends 'basefix.html' %}
+
+{% block content %}
+<link href="https://pro.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet" />
+<link href="https://assets.codepen.io/2940219/tacosontitan-1.1.css" rel="stylesheet" />
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" rel="stylesheet" />
+<div id="primary-content" class="centered-pen">
+	<h1 class="display-3">Hello, <span style="text-transform: capitalize;">{{ current_user.name }}</span></h1>
+	<p class="lead">Meet Felix, your new personal assistant with an outstanding personality!</p>
+	<div class="personal-assistant">
+		<div id="felix" class="felix" onclick="activateFelix();">
+			<div class="eyes">
+				<div class="eye left"></div>
+				<div class="eye right"></div>
+			</div>
+		</div>
+		<div class="platform"></div>
+		<ul class="command-list">
+			<li><i class="far fa-clouds" onclick="getWeather();"></i></li>
+			<li><i class="far fa-clock" onclick="getTime();"></i></li>
+			<li><i class="far fa-calendar-alt" onclick="getDate();"></i></li>
+			<li><i class="far fa-grin-squint-tears" onclick="tellJoke();"></i></li>
+			<li><i class="far fa-search" onclick="searchGoogle();"></i></li>
+			<li><i class="far fa-lightbulb-on" onclick="showInspiration();"></i></li>
+			<p class="hey-felix lead"></p>
+		</ul>
+	</div>
+	<div id="response-frame" class="response-frame">
+		<p id="response-message" class="lead"></p>
+		<i class="fas fa-times" onclick="closeResponse();"></i>
+	</div>
+</div>
+<style>
+  /* Felix */
+  .tooltip{
+	z-index: 99;
+  }
+  .is-visible{
+    opacity: 1;
+  }
+  .dropdown-menu {
+    left: -135px;
+  }
+.centered-pen{
+    padding: 150px;
+}
+.personal-assistant {
+	position: relative;
+	margin-top: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
+}
+.felix {
+	position: absolute;
+	bottom: 50px;
+	width: 110px;
+	height: 95px;
+	border-radius: 45%;
+	border: 3px solid #fff;
+	box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+	animation: breathe-and-jump 3s linear infinite;
+	cursor: pointer;
+	z-index: 1;
+}
+.felix::before {
+	content: '';
+	position: absolute;
+	top: -1px;
+	left: -1px;
+	width: calc(100% + 3px);
+	height: calc(100% + 2px);
+	background-color: #18c;
+	background: linear-gradient(to bottom, #5fc, #1a8);
+	background: -webkit-linear-gradient(to bottom, #5cf, #18c);
+	border-radius: 45%;
+	opacity: 0;
+	transition: 0.3s linear all;
+}
+.felix > .eyes { position: relative; }
+.felix > .eyes > .eye {
+	position: absolute;
+	top: 20px;
+	width: 20px;
+	height: 25px;
+	border-radius: 15px;
+	background-color: #fff;
+	box-shadow: 0 0 7px rgba(255, 255, 255, 0.5);
+	animation: blink 5s linear infinite;
+}
+.felix > .eyes > .eye.left { left: 25%; }
+.felix > .eyes > .eye.right { right: 25%; }
+
+/* Platforms */
+.platform {
+	transform: rotateX(70deg);
+	width: 100px;
+	height: 100px;
+	box-shadow: 0 0 100px #fff,
+		         0 0 15px #fff inset;
+	animation: jump-pulse 3s linear infinite;
+}
+.platform,
+.command-list > li::before {
+	border-radius: 50%;
+	transition: 0.2s linear all;
+}
+.command-list > li::before {
+	content: '';
+	position: absolute;
+	bottom: -35px;
+	left: 50%;
+	width: 65px;
+	height: 65px;
+	transform: translate(-50%) rotateX(70deg);
+	box-shadow: 0 0 50px #fff,
+		         0 0 15px #fff inset;
+}
+
+/* Hover */
+.felix:not(.active):hover {
+	animation: shake-to-alert 0.5s linear;
+	height: 105px;
+	transform: translateY(-4px);
+}
+.felix:not(.active):hover,
+.felix:not(.active):hover > .eyes > .eye {
+	border-color: #fc5;
+	box-shadow: 0 0 5px #fc5;
+}
+.felix:not(.active):hover + .platform {
+	box-shadow: 0 0 100px #fc5,
+		         0 0 15px #fc5 inset;
+	animation: shake-pulse 0.5s linear;
+}
+
+/* Awaiting Command */
+.felix.active { animation: bounce-then-breathe 5s linear infinite; }
+.felix.active::before { opacity: 1; }
+.felix.active,
+.felix.active > .eyes > .eye {
+	border-color: #5fc;
+	box-shadow: 0 0 5px #5fc;
+}
+.felix.active + .platform {
+	box-shadow: 0 0 100px #5fc,
+		         0 0 25px #5fc inset;
+	animation: bounce-pulse 5s linear;
+}
+
+/* Deactivation */
+.felix.inactive {
+	animation: deactivate 0.75s linear,
+				  breathe-and-jump 3s linear infinite;
+}
+.felix.inactive + .platform {
+	animation: deactivate-platform 0.75s linear;
+}
+
+/* Command List */
+.command-list {
+	position: absolute;
+	bottom: 35px;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	z-index: 0;
+}
+.command-list > li {
+	display: none;
+	width: 45px;
+	height: 45px;
+	line-height: 37px;
+	font-size: 25px;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	box-shadow: 0 0 5px #fff;
+	margin: 10px 12px;
+	cursor: pointer;
+	opacity: 0;
+}
+.felix.active ~ .command-list > li {
+	display: inline-block;
+	animation: fade-in 1s linear forwards;
+}
+.command-list > li:hover {
+	border-color: #5cf;
+	box-shadow: 0 0 5px #5cf;
+}
+.command-list > li:hover::before {
+	box-shadow: 0 0 50px #5cf,
+		         0 0 15px #5cf inset;
+}
+.command-list > li:hover > i { color: #5cf; }
+.command-list > li:nth-child(1) { transform: translateX(100px) translateY(45px); }
+.command-list > li:nth-child(1):hover ~ .hey-felix::after { content: "Hey Felix, how's the weather?"; }
+.command-list > li:nth-child(2) { transform: translateX(-15px) translateY(-15px); }
+.command-list > li:nth-child(2):hover ~ .hey-felix::after { content: "Hey Felix, what time is it?"; }
+.command-list > li:nth-child(3) { transform: translateX(-35px) translateY(-55px); }
+.command-list > li:nth-child(3):hover ~ .hey-felix::after { content: "Hey Felix, what's today?"; }
+.command-list > li:nth-child(4) { transform: translateX(35px) translateY(-55px); }
+.command-list > li:nth-child(4):hover ~ .hey-felix::after { content: "Hey Felix, tell me a joke."; }
+.command-list > li:nth-child(5) { transform: translateX(15px) translateY(-15px); }
+.command-list > li:nth-child(5):hover ~ .hey-felix::after { content: "Hey Felix..."; }
+.command-list > li:nth-child(6) { transform: translateX(-100px) translateY(45px); }
+.command-list > li:nth-child(6):hover ~ .hey-felix::after { content: "Hey Felix, what inspires you?"; }
+
+/* Hey Felix */
+.hey-felix {
+	position: relative;
+	transform: translateY(50px);
+	margin: 0;
+}
+.hey-felix::after {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	white-space: nowrap;
+	background-color: #fffa;
+}
+
+/* Response */
+.response-frame {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	background-color: #000c;
+	z-index: -1;
+	opacity: 0;
+}
+.response-frame.active {
+	z-index: 1000;
+	opacity: 1;
+}
+.response-frame > .lead {
+	padding: 10px;
+	margin: 10px;
+	border-radius: 5px;
+	background-color: #fff;
+	color: #333;
+}
+.response-frame > .fas {
+	width: 50px;
+	height: 50px;
+	font-size: 25px;
+	line-height: 45px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	cursor: pointer;
+	box-shadow: 0 0 10px #fff, 0 0 5px #fff inset;
+	transition: 0.3s linear all;
+}
+.response-frame > .fas:hover {
+	border: 2px solid #f55;
+	box-shadow: 0 0 15px #f55, 0 0 5px #f55 inset;
+	color: #f55;
+}
+
+/* Animations */
+@keyframes fade-in {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+@keyframes breathe {
+	0%, 100% {
+		height: 95px;
+		transform: translateY(0);
+	}
+	50% {
+		height: 100px;
+		transform: translateY(-5px);
+	}
+}
+@keyframes bounce-then-breathe {
+	0%, 5%, 10%, 15% { transform: translateY(0); }
+	2.5%, 7.5%, 12.5% { transform: translateY(-15px); }
+	20%, 40%, 60%, 80%, 100% {
+		height: 95px;
+		transform: translateY(0);
+	}
+	30%, 50%, 70%, 90% {
+		height: 100px;
+		transform: translateY(-5px);
+	}
+}
+@keyframes shake-pulse {
+	0%, 20%, 40%, 60%, 80%, 100% { box-shadow: 0 0 100px #fc5, 0 0 15px #fc5 inset; }
+	10%, 25%, 35%, 50%, 65% { box-shadow: 0 0 115px #fc5, 0 0 15px #fc5 inset; }
+	15%, 30%, 45%, 55%, 70% { box-shadow: 0 0 95px #fc5, 0 0 15px #fc5 inset; }
+}
+@keyframes bounce-pulse {
+	0%, 5%, 10%, 15% { box-shadow: 0 0 30px #5fc, 0 0 45px #5fc inset; }
+	2.5%, 7.5%, 12.5% { box-shadow: 0 0 100px #5fc, 0 0 15px #5fc inset; }
+	20%, 40%, 60%, 80%, 100% { box-shadow: 0 0 30px #5fc, 0 0 45px #5fc inset; }
+	30%, 50%, 70%, 90% { box-shadow: 0 0 70px #5fc, 0 0 25px #5fc inset; }
+}
+@keyframes jump-pulse {
+	0%, 40%, 80%, 100% {
+		box-shadow: 0 0 30px #fff,
+		         	0 0 45px #fff inset;
+	}
+	20%, 60%, 70%, 90% {
+		box-shadow: 0 0 70px #fff,
+		         	0 0 25px #fff inset;
+	}
+	85% {
+		box-shadow: 0 0 100px #fff,
+		         	0 0 15px #fff inset;
+	}
+}
+@keyframes breathe-and-jump {
+	0%, 40%, 80%, 100% { height: 95px; transform: translateY(0); }
+	20%, 60%, 70%, 90% { height: 100px; transform: translateY(-5px); }
+	85% { height: 85px; transform: translateY(-20px); }
+}
+@keyframes shake-to-alert {
+	0%, 20%, 40%, 60%, 80%, 100% { transform: rotate(0) translateY(-5px); }
+	10%, 25%, 35%, 50%, 65% { transform: rotate(5deg) translateY(-5px); }
+	15%, 30%, 45%, 55%, 70% { transform: roate(-5deg) translateY(-5px); }
+}
+@keyframes blink {
+	0%, 100% { transform: scale(1, 0.05); }
+	5%, 95% { transform: scale(1, 1); }
+}
+@keyframes deactivate {
+	0% { border-color: #5fc; }
+	20%, 60% { border-color: #f55; }
+	40%, 80%, 100% { border-color: #fff; }
+}
+@keyframes deactivate-platform {
+	0% { box-shadow: 0 0 100px #5fc, 0 0 15px #5fc inset; }
+	40%, 80%, 100% { box-shadow: 0 0 15px #fff, 0 0 15px #fff inset; }
+	20%, 60% { box-shadow: 0 0 100px #f55, 0 0 15px #f55 inset; }
+}
+
+/* Template Overrides */
+
+body{
+	color: #fff;
+}
+</style>
+<script>
+// Constants
+const ACTIVE_TIME_MS = 5000;
+const DEACTIVATION_TIME_MS = 750;
+
+// Variables
+var felix = document.getElementById("felix");
+var responseFrame = document.getElementById("response-frame");
+var responseMessage = document.getElementById("response-message");
+var userMadeDecision = false;
+var jokes = [
+	'I ate a clock yesterday, it was very time-consuming.',
+	'A perfectionist walked into a bar…apparently, the bar wasn’t set high enough.',
+	'Employee of the month is a good example of how somebody can be both a winner and a loser at the same time.',
+	'I don’t have a girlfriend, but I know a girl that would get really mad if she heard me say that.',
+	'Relationships are great, but have you ever had stuffed crust pizza?',
+	'The worst time to have a heart attack is during a game of charades.',
+	'My therapist says I have a preoccupation with vengeance. We’ll see about that.',
+	'I have a friend. He keeps trying to convince me he’s a compulsive liar, but I don’t believe him.'
+];
+
+// Activate felix and set timeout for awaiting a command.
+function activateFelix() {
+	userMadeDecision = false;
+	felix.classList.remove("inactive");
+	felix.classList.add("active");
+	setTimeout(function() {
+		if (!userMadeDecision) {
+			felix.classList.remove("active");
+			felix.classList.add("inactive");
+			setTimeout(function() {
+				felix.classList.remove("inactive");
+			}, 750);
+		}
+	}, 5000);
+}
+function deactivateFelix() {
+	userMadeDecision = true;
+	felix.classList.remove("active");
+	felix.classList.add("inactive");
+	setTimeout(function() {
+		felix.classList.remove("inactive");
+	}, 750);
+}
+function getWeather() {
+    let weather = {
+        apiKey: "062d92a2646152d39eb7845a608226cb",   // Nhập key lấy từ openweathermap.org
+        fetchWeather: function (city) {
+          fetch(
+            "https://api.openweathermap.org/data/2.5/weather?q=" +
+              city +
+              "&lang=vi&units=metric&appid=" +
+              this.apiKey
+          )
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Không có địa điểm");
+              }
+              return response.json();
+            })
+            .then((data) => this.displayWeather(data));
+        },
+        displayWeather: function (data) {
+          const { name } = data;
+          const { icon, description } = data.weather[0];
+          const { temp, humidity } = data.main;
+          const { speed } = data.wind;
+          const { country } = data.sys; 
+          responseMessage.innerText = "The weather really just kind of sucks here, and I know you wanted the weather at your location, but that's life for you.I'm just kidding... \n" + name + "," + country +": \n" +temp + "°C"+" - Gió: " + speed + " km/h"+ " - Độ ẩm: " + humidity + "%\n" + description;;
+        
+        },
+        };
+        weather.fetchWeather("ha noi");
+	showResponse();
+}
+function getTime() {
+	var today = new Date();
+	var time = today.getHours() + ":" + today.getMinutes();
+	responseMessage.innerText = "Perhaps it's time for you to get a watch? I'm just kidding... No. Really... It's " + time + ".";
+	showResponse();
+}
+function getDate() {
+	var today = new Date();
+	var date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+	responseMessage.innerText = "A calendar is a great investment you know; I mean, your computer even has one! Since you asked, today is " + date + ".";
+	showResponse();
+}
+function tellJoke() {
+	var index = Math.floor((Math.random() * jokes.length) - 1);
+	responseMessage.innerText = jokes[index];
+	showResponse();
+}
+function searchGoogle() {
+	deactivateFelix();
+	window.open("https://www.google.com/", "_blank");
+}
+function showInspiration() {
+	deactivateFelix();
+	window.open("https://codepen.io/trending", "_blank");
+}
+function showResponse() {
+	responseFrame.classList.add("active");
+	deactivateFelix();
+}
+function closeResponse() { responseFrame.classList.remove("active"); }
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+{% endblock %}
+{% block talktext %}
+<p style="font-size: 14px;text-align: center;">Please subscribe to the topic by clicking here</p>
+{% endblock %}
